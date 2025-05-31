@@ -1,21 +1,31 @@
-import './App.css';
 import React from "react";
-// import Welcome from './Components/Welcome';
-// import CurrentDate from './Components/CurrentDate';
-// import ReSize from './Components/ReSize';
-import Weather from './Components/Weather';
-function App() {
-  return (
-    <div className="App">
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Login from "./Login";
+// import Contact from "./Contact";
+import LoginPage from "./pages/LoginPage";
+import ContactPage from "./pages/ContactPage";
+import { SessionProvider } from "./Hooks/useSession";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
-      {/* <Welcome/>
-      <CurrentDate/> */}
-      {/* <ReSize/> */}
-      <h2>Welcome to our whether app</h2>
-      <p>get the latest weather updates</p>
-      <Weather/>
-    </div>
+const App = () => {
+  return (
+    <SessionProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route
+            path="/contact"
+            element={
+              <ProtectedRoute>
+                {/* <Contact /> */}
+                <ContactPage/>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </SessionProvider>
   );
-}
+};
 
 export default App;
